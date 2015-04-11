@@ -16,7 +16,7 @@
 
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
-TARGET_CPU_VARIANT := cortex-a8
+TARGET_CPU_VARIANT := scorpion
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := false
@@ -69,6 +69,10 @@ TW_HAS_NO_BOOT_PARTITION := true
 TW_HAS_NO_RECOVERY_PARTITION := true
 TW_CUSTOM_BATTERY_PATH := "/sys/class/power_supply/huawei-battery"
 
+ifneq (,$(strip $(wildcard bootable/recovery-twrp/twrp.cpp)))
+RECOVERY_VARIANT := twrp
+endif
+
 # Filesystem
 # 800MiB/839MB
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 838860800
@@ -81,7 +85,7 @@ BOARD_FLASH_BLOCK_SIZE := 512
 TARGET_USES_ION := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 TARGET_RELEASETOOLS_EXTENSIONS := device/huawei/msm7x30-common
-TARGET_ENABLE_NON_PIE_SUPPORT := true
+TARGET_NEEDS_NON_PIE_SUPPORT := true
 TARGET_DISABLE_ARM_PIE := true
 MALLOC_IMPL := dlmalloc
 TARGET_CONTINUOUS_SPLASH_ENABLED := true
